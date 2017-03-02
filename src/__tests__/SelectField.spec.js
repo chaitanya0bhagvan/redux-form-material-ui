@@ -23,7 +23,7 @@ describe('SelectField', () => {
         value: 'Foo'
       }
     }).render())
-      .toEqualJSX(<SelectField name="mySelect" value="Foo" onChange={noop} ref="component"/>)
+      .toEqualJSX(<SelectField name="mySelect" value="Foo" onChange={noop} ref="component" onBlur={noop}/>)
   })
 
   it('renders a SelectField with no error when not touched', () => {
@@ -36,7 +36,7 @@ describe('SelectField', () => {
         error: 'FooError'
       }
     }).render())
-      .toEqualJSX(<SelectField name="mySelect" value="Foo" onChange={noop} ref="component"/>)
+      .toEqualJSX(<SelectField name="mySelect" value="Foo" onChange={noop} ref="component" onBlur={noop}/>)
   })
 
   it('renders a SelectField with an error', () => {
@@ -51,7 +51,35 @@ describe('SelectField', () => {
       }
     }).render())
       .toEqualJSX(<SelectField name="mySelect" value="Foo" errorText="FooError" onChange={noop}
-        ref="component"/>)
+        ref="component" onBlur={noop}/>)
+  })
+
+  it('renders a SelectField with no warning when not touched', () => {
+    expect(new ReduxFormMaterialUISelectField({
+      input: {
+        name: 'mySelect',
+        value: 'Foo'
+      },
+      meta: {
+        warning: 'FooWarning'
+      }
+    }).render())
+      .toEqualJSX(<SelectField name="mySelect" value="Foo" onChange={noop} ref="component" onBlur={noop}/>)
+  })
+
+  it('renders a SelectField with an warning', () => {
+    expect(new ReduxFormMaterialUISelectField({
+      input: {
+        name: 'mySelect',
+        value: 'Foo'
+      },
+      meta: {
+        warning: 'FooWarning',
+        touched: true
+      }
+    }).render())
+      .toEqualJSX(<SelectField name="mySelect" value="Foo" errorText="FooWarning" onChange={noop}
+        ref="component" onBlur={noop}/>)
   })
 
   it('maps onChange properly', () => {
@@ -96,6 +124,26 @@ describe('SelectField', () => {
       .toHaveBeenCalledWith('TheValue')
   })
 
+  it('calls onBlur with currently selected value', () => {
+    const fieldOnBlur = createSpy()
+
+    const dom = TestUtils.renderIntoDocument(
+      <MuiThemeProvider muiTheme={getMuiTheme()}>
+        <ReduxFormMaterialUISelectField name="mySelect" input={{ value: 'Foo', onBlur: fieldOnBlur }} />
+      </MuiThemeProvider>
+    )
+
+    const select = TestUtils.findRenderedComponentWithType(dom, SelectField)
+
+    expect(fieldOnBlur).toNotHaveBeenCalled()
+
+    select.props.onBlur()
+
+    expect(fieldOnBlur)
+      .toHaveBeenCalled()
+      .toHaveBeenCalledWith('Foo')
+  })
+
   it('provides getRenderedComponent', () => {
     const dom = TestUtils.renderIntoDocument(
       <MuiThemeProvider muiTheme={getMuiTheme()}>
@@ -109,4 +157,3 @@ describe('SelectField', () => {
     expect(element.getRenderedComponent()).toExist()
   })
 })
-
