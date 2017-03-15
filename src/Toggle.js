@@ -14,7 +14,9 @@ export default createComponent(
   }) => ({
     ...inputProps,
     ...props,
-    toggled: defaultToggled ? true : false,
-    onToggle: onChange
+    toggled: inputProps.value === "" ? defaultToggled : inputProps.value,
+    onToggle: function onToggle(event, value) {
+      onChange(value)
+    }
   })
 )

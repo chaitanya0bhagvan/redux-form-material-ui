@@ -6,6 +6,7 @@ import { RadioButtonGroup } from 'material-ui/RadioButton'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import ReduxFormMaterialUIRadioButtonGroup from '../RadioButtonGroup'
+import noop from 'lodash.noop'
 
 expect.extend(expectJsx)
 
@@ -22,7 +23,7 @@ describe('RadioButtonGroup', () => {
         value: 'Foo'
       }
     }).render())
-      .toEqualJSX(<RadioButtonGroup name="myRadio" value="Foo" valueSelected="Foo" ref="component"/>)
+      .toEqualJSX(<RadioButtonGroup name="myRadio" onChange={noop} value="Foo" valueSelected="Foo" ref="component"/>)
   })
 
   it('renders a RadioButtonGroup with no error when not touched', () => {
@@ -35,7 +36,7 @@ describe('RadioButtonGroup', () => {
         error: 'FooError'
       }
     }).render())
-      .toEqualJSX(<RadioButtonGroup name="myRadio" value="Foo" valueSelected="Foo" ref="component"/>)
+      .toEqualJSX(<RadioButtonGroup name="myRadio" onChange={noop} value="Foo" valueSelected="Foo" ref="component"/>)
   })
 
   it('renders a RadioButtonGroup with an error', () => {
@@ -49,7 +50,7 @@ describe('RadioButtonGroup', () => {
         touched: true
       }
     }).render())
-      .toEqualJSX(<RadioButtonGroup name="myRadio" value="Foo" valueSelected="Foo" errorText="FooError"
+      .toEqualJSX(<RadioButtonGroup name="myRadio" onChange={noop} value="Foo" valueSelected="Foo" errorText="FooError"
         ref="component"/>)
   })
 
@@ -63,7 +64,7 @@ describe('RadioButtonGroup', () => {
         warning: 'FooWarning'
       }
     }).render())
-      .toEqualJSX(<RadioButtonGroup name="myRadio" value="Foo" valueSelected="Foo" ref="component"/>)
+      .toEqualJSX(<RadioButtonGroup name="myRadio" onChange={noop} value="Foo" valueSelected="Foo" ref="component"/>)
   })
 
   it('renders a RadioButtonGroup with an warning', () => {
@@ -77,7 +78,7 @@ describe('RadioButtonGroup', () => {
         touched: true
       }
     }).render())
-      .toEqualJSX(<RadioButtonGroup name="myRadio" value="Foo" valueSelected="Foo" errorText="FooWarning"
+      .toEqualJSX(<RadioButtonGroup name="myRadio" onChange={noop} value="Foo" valueSelected="Foo" errorText="FooWarning"
         ref="component"/>)
   })
 

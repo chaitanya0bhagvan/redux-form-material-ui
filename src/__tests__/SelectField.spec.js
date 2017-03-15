@@ -105,7 +105,7 @@ describe('SelectField', () => {
 
     const dom = TestUtils.renderIntoDocument(
       <MuiThemeProvider muiTheme={getMuiTheme()}>
-        <ReduxFormMaterialUISelectField name="mySelect" input={{ onChange:reduxFormOnChange, value: 'Foo' }} onChange={fieldOnChange}/>
+        <ReduxFormMaterialUISelectField name="mySelect" input={{ onChange:reduxFormOnChange, value: 'Foo' }} onChangeFunc={fieldOnChange}/>
       </MuiThemeProvider>
     )
 
@@ -121,7 +121,7 @@ describe('SelectField', () => {
       .toHaveBeenCalledWith('TheValue')
     expect(fieldOnChange)
       .toHaveBeenCalled()
-      .toHaveBeenCalledWith('TheValue')
+      .toHaveBeenCalledWith(42, 'TheValue')
   })
 
   it('calls onBlur with currently selected value', () => {
