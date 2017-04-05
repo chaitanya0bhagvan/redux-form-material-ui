@@ -79,7 +79,10 @@
     "lib",
     "es",
     "dist",
-    "src"
+    "src",
+    ".eslintrc",
+    ".babelrc",
+    ".eslintignore",
   ],
   "nyc": {
     "include": [
