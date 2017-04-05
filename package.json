@@ -78,7 +78,8 @@
     "README.md",
     "lib",
     "es",
-    "dist"
+    "dist",
+    "src
   ],
   "nyc": {
     "include": [
