@@ -9,6 +9,8 @@ export default createComponent(
       ...inputProps
     },
     defaultValue,
+    onChangeField,
+    skipOnChange,
     ...props
   }) => {
     if(inputProps.value === '') {
@@ -16,7 +18,15 @@ export default createComponent(
     }
     return {
       ...inputProps,
-      ...mapError(props)
+      ...mapError(props),
+      onChange: (e, newValue) => {
+        if(onChangeField && typeof onChangeField === 'function') {
+          onChangeField(newValue);
+        }
+        if(!skipOnChange) {
+          inputProps.onChange(newValue);
+        }
+      }
     }
   }
 )
